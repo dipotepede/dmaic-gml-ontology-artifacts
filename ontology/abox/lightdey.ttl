@@ -1,0 +1,24 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gml: <https://w3id.org/dmaic-gml#> .
+
+gml:LightDeyInstance rdf:type gml:Application ;
+    rdfs:label "LightDey.Africa Distributed Grid Platform" ;
+    gml:implementsPhase gml:LightDeyControlPhase .
+
+gml:LightDeyControlPhase rdf:type gml:ControlPhase ;
+    gml:evaluatesParameter gml:GridFeederVoltageStability ;
+    gml:quantifiesWith gml:ProcessCapabilityIndexCp .
+
+gml:GridFeederVoltageStability rdf:type gml:OperationalParameter ;
+    rdfs:label "Line Voltage Capability Cp" .
+
+gml:ProcessCapabilityIndexCp rdf:type gml:StatisticalMetric ;
+    gml:hasObservedValue "1.42"^^xsd:decimal ;
+    gml:triggersGate gml:MicrogridHandoffGate .
+
+gml:MicrogridHandoffGate rdf:type gml:GovernanceGate ;
+    gml:hasLowerBound "1.33"^^xsd:decimal ;
+    gml:hasUpperBound "2.50"^^xsd:decimal ;
+    gml:enforcesControlOver gml:LightDeyInstance .

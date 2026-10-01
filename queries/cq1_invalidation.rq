@@ -1,0 +1,14 @@
+PREFIX gml: <https://w3id.org/dmaic-gml#>
+
+# CQ1: Return every observation outside its governance gate interval
+SELECT ?app ?param ?observed ?lower ?upper
+WHERE {
+  ?app gml:implementsPhase ?phase .
+  ?phase gml:evaluatesParameter ?param ;
+         gml:quantifiesWith ?metric .
+  ?metric gml:hasObservedValue ?observed ;
+          gml:triggersGate ?gate .
+  ?gate gml:hasLowerBound ?lower ;
+        gml:hasUpperBound ?upper .
+  FILTER (?observed < ?lower || ?observed > ?upper)
+}

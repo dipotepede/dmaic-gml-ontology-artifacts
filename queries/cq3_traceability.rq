@@ -1,0 +1,9 @@
+PREFIX gml: <https://w3id.org/dmaic-gml#>
+
+# CQ3: Trace parameter to quantifying metric and triggered gate
+SELECT ?param ?metric ?gate
+WHERE {
+  ?phase gml:evaluatesParameter ?param ;
+         gml:quantifiesWith ?metric .
+  ?metric gml:triggersGate ?gate .
+}

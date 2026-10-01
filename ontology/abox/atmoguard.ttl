@@ -1,0 +1,24 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gml: <https://w3id.org/dmaic-gml#> .
+
+gml:AtmoGuardInstance rdf:type gml:Application ;
+    rdfs:label "AtmoGuard Microclimate Platform" ;
+    gml:implementsPhase gml:AtmoGuardControlPhase .
+
+gml:AtmoGuardControlPhase rdf:type gml:ControlPhase ;
+    gml:evaluatesParameter gml:AmbientParticulateConcentration ;
+    gml:quantifiesWith gml:ParticulateMovingRangeSigma .
+
+gml:AmbientParticulateConcentration rdf:type gml:OperationalParameter ;
+    rdfs:label "PM2.5 Ambient Density (ug/m3)" .
+
+gml:ParticulateMovingRangeSigma rdf:type gml:StatisticalMetric ;
+    gml:hasObservedValue "12.4"^^xsd:decimal ;
+    gml:triggersGate gml:HazardThresholdGate .
+
+gml:HazardThresholdGate rdf:type gml:GovernanceGate ;
+    gml:hasLowerBound "0.00"^^xsd:decimal ;
+    gml:hasUpperBound "35.00"^^xsd:decimal ;
+    gml:enforcesControlOver gml:AtmoGuardInstance .

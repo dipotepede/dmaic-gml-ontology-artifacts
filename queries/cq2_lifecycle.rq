@@ -1,0 +1,8 @@
+PREFIX gml: <https://w3id.org/dmaic-gml#>
+
+# CQ2: Check application DMAIC phase implementation and evaluated parameters
+SELECT ?app ?phase ?param
+WHERE {
+  ?app gml:implementsPhase ?phase .
+  OPTIONAL { ?phase gml:evaluatesParameter ?param }
+}

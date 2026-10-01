@@ -1,0 +1,10 @@
+PREFIX gml: <https://w3id.org/dmaic-gml#>
+
+# CQ4: Test decoupled metric inspection
+SELECT ?metric ?val ?gate ?lower ?upper
+WHERE {
+  ?metric gml:hasObservedValue ?val ;
+          gml:triggersGate ?gate .
+  ?gate gml:hasLowerBound ?lower ;
+        gml:hasUpperBound ?upper .
+}

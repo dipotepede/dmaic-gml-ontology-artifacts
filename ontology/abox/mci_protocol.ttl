@@ -1,0 +1,25 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gml: <https://w3id.org/dmaic-gml#> .
+
+gml:MCIProtocolInstance rdf:type gml:Application ;
+    rdfs:label "MCI Compatibility & Governance Engine" ;
+    gml:implementsPhase gml:MCIControlPhase .
+
+gml:MCIControlPhase rdf:type gml:ControlPhase ;
+    gml:evaluatesParameter gml:InterPartnerConcordance ;
+    gml:quantifiesWith gml:CohensKappaMetric .
+
+gml:InterPartnerConcordance rdf:type gml:OperationalParameter ;
+    rdfs:label "30-Day Multi-Domain Perceptual Concordance" .
+
+gml:CohensKappaMetric rdf:type gml:StatisticalMetric ;
+    gml:hasObservedValue "0.78"^^xsd:decimal ;
+    gml:triggersGate gml:GateZeroBiologicalGate .
+
+gml:GateZeroBiologicalGate rdf:type gml:GovernanceGate ;
+    rdfs:comment "Enforces biological hard constraint and inter-rater agreement" ;
+    gml:hasLowerBound "0.25"^^xsd:decimal ;
+    gml:hasUpperBound "1.00"^^xsd:decimal ;
+    gml:enforcesControlOver gml:MCIProtocolInstance .

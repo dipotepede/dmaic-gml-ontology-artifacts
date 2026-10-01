@@ -1,0 +1,62 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gml: <https://w3id.org/dmaic-gml#> .
+
+<https://w3id.org/dmaic-gml> rdf:type owl:Ontology ;
+    rdfs:label "DMAIC-GML: An Ontology for Governed Machine Learning and Reliable AI"@en ;
+    owl:versionInfo "1.2.0" ;
+    rdfs:comment "A formal semantic metamodel grounding Statistical Process Control into runtime AI governance gates."@en .
+
+# --- Classes ---
+gml:Application rdf:type owl:Class ;
+    rdfs:comment "A software domain instance deploying a machine learning or analytical pipeline."@en .
+
+gml:ProcessPhase rdf:type owl:Class ;
+    rdfs:comment "One of the five DMAIC quality assurance phases (Define, Measure, Analyze, Improve, Control)."@en .
+
+gml:DefinePhase rdf:type owl:Class ; rdfs:subClassOf gml:ProcessPhase .
+gml:MeasurePhase rdf:type owl:Class ; rdfs:subClassOf gml:ProcessPhase .
+gml:AnalyzePhase rdf:type owl:Class ; rdfs:subClassOf gml:ProcessPhase .
+gml:ImprovePhase rdf:type owl:Class ; rdfs:subClassOf gml:ProcessPhase .
+gml:ControlPhase rdf:type owl:Class ; rdfs:subClassOf gml:ProcessPhase .
+
+gml:OperationalParameter rdf:type owl:Class ;
+    rdfs:comment "A variable or telemetry feed monitored for system quality."@en .
+
+gml:StatisticalMetric rdf:type owl:Class ;
+    rdfs:comment "A formal statistical function quantifying parameter dispersion or central tendency."@en .
+
+gml:StochasticStabilityScore rdf:type owl:Class ; 
+    rdfs:subClassOf gml:StatisticalMetric ;
+    rdfs:comment "Shewhart-governed scale-invariant stability metric using ASTM d2=1.128 unbiasing constants."@en .
+
+gml:GovernanceGate rdf:type owl:Class ;
+    rdfs:comment "An automated executable boundary enforcing runtime satisfiability over host applications."@en .
+
+# --- Object Properties ---
+gml:implementsPhase rdf:type owl:ObjectProperty ;
+    rdfs:domain gml:Application ; rdfs:range gml:ProcessPhase .
+
+gml:evaluatesParameter rdf:type owl:ObjectProperty ;
+    rdfs:domain gml:ProcessPhase ; rdfs:range gml:OperationalParameter .
+
+gml:quantifiesWith rdf:type owl:ObjectProperty ;
+    rdfs:domain gml:ProcessPhase ; rdfs:range gml:StatisticalMetric .
+
+gml:triggersGate rdf:type owl:ObjectProperty ;
+    rdfs:domain gml:StatisticalMetric ; rdfs:range gml:GovernanceGate .
+
+gml:enforcesControlOver rdf:type owl:ObjectProperty ;
+    rdfs:domain gml:GovernanceGate ; rdfs:range gml:Application .
+
+# --- Data Properties ---
+gml:hasLowerBound rdf:type owl:DatatypeProperty ;
+    rdfs:domain gml:GovernanceGate ; rdfs:range xsd:decimal .
+
+gml:hasUpperBound rdf:type owl:DatatypeProperty ;
+    rdfs:domain gml:GovernanceGate ; rdfs:range xsd:decimal .
+
+gml:hasObservedValue rdf:type owl:DatatypeProperty ;
+    rdfs:domain gml:StatisticalMetric ; rdfs:range xsd:decimal .

@@ -1,0 +1,14 @@
+PREFIX gml: <https://w3id.org/dmaic-gml#>
+
+# CQ5: Retrieve applications satisfying CompliantInferenceState bounds [0.95, 1.00]
+SELECT ?app ?metric ?observed
+WHERE {
+  ?app gml:implementsPhase ?phase .
+  ?phase rdf:type gml:ControlPhase ;
+         gml:quantifiesWith ?metric .
+  ?metric gml:hasObservedValue ?observed ;
+          gml:triggersGate ?gate .
+  ?gate gml:hasLowerBound ?lower ;
+        gml:hasUpperBound ?upper .
+  FILTER (?observed >= 0.95 && ?observed <= 1.00)
+}

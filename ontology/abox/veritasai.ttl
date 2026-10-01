@@ -1,0 +1,24 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gml: <https://w3id.org/dmaic-gml#> .
+
+gml:VeritasAIInstance rdf:type gml:Application ;
+    rdfs:label "VeritasAI Meta-Training Jitter Auditor" ;
+    gml:implementsPhase gml:VeritasAIControlPhase .
+
+gml:VeritasAIControlPhase rdf:type gml:ControlPhase ;
+    gml:evaluatesParameter gml:NeuralOptimizationTrajectory ;
+    gml:quantifiesWith gml:ParametricStabilityScoreSS .
+
+gml:NeuralOptimizationTrajectory rdf:type gml:OperationalParameter ;
+    rdfs:label "Seed-Induced Run-to-Run Dispersion" .
+
+gml:ParametricStabilityScoreSS rdf:type gml:StochasticStabilityScore ;
+    gml:hasObservedValue "0.9729"^^xsd:decimal ;
+    gml:triggersGate gml:TierOneCertificationGate .
+
+gml:TierOneCertificationGate rdf:type gml:GovernanceGate ;
+    gml:hasLowerBound "0.95"^^xsd:decimal ;
+    gml:hasUpperBound "1.00"^^xsd:decimal ;
+    gml:enforcesControlOver gml:VeritasAIInstance .

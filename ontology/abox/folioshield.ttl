@@ -1,0 +1,24 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gml: <https://w3id.org/dmaic-gml#> .
+
+gml:FolioShieldInstance rdf:type gml:Application ;
+    rdfs:label "FolioShield Agricultural Vision Engine" ;
+    gml:implementsPhase gml:FolioShieldControlPhase .
+
+gml:FolioShieldControlPhase rdf:type gml:ControlPhase ;
+    gml:evaluatesParameter gml:CassavaPathologyInference ;
+    gml:quantifiesWith gml:RealTimeEntropyStabilityScore .
+
+gml:CassavaPathologyInference rdf:type gml:OperationalParameter ;
+    rdfs:label "Nigerian Cassava Diagnostic Macro F1 Trajectory" .
+
+gml:RealTimeEntropyStabilityScore rdf:type gml:StochasticStabilityScore ;
+    gml:hasObservedValue "0.9729"^^xsd:decimal ;
+    gml:triggersGate gml:EdgeCompilationGate .
+
+gml:EdgeCompilationGate rdf:type gml:GovernanceGate ;
+    gml:hasLowerBound "0.95"^^xsd:decimal ;
+    gml:hasUpperBound "1.00"^^xsd:decimal ;
+    gml:enforcesControlOver gml:FolioShieldInstance .
